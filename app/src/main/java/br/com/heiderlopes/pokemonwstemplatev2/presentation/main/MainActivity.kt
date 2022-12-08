@@ -3,7 +3,6 @@ package br.com.heiderlopes.pokemonwstemplatev2.presentation.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import br.com.heiderlopes.pokemonwstemplatev2.R
 import br.com.heiderlopes.pokemonwstemplatev2.databinding.ActivityMainBinding
 import br.com.heiderlopes.pokemonwstemplatev2.presentation.listpokemons.ListPokemonsActivity
 
@@ -18,8 +17,11 @@ class MainActivity : AppCompatActivity() {
         setUpListeners()
     }
     private fun setUpListeners () {
-        binding.btPokemonList .setOnClickListener {
-            startActivity(Intent( this, ListPokemonsActivity::class.java))
+        with(binding) {
+            btPokemonList.setOnClickListener {
+                startActivity(Intent(this@MainActivity, ListPokemonsActivity::class.java))
+            }
+            btClose.setOnClickListener { finish() }
         }
     }
 
