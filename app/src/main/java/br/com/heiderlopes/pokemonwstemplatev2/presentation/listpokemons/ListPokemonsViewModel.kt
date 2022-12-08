@@ -26,7 +26,6 @@ class ListPokemonsViewModel(
             }.onSuccess { result ->
                 val pokemons = result.getOrNull()
                 pokemons?.let { _pokemonResult.postValue(ViewState.Success(it)) }
-//                _pokemonResult.postValue(ViewState.Success(it.getOrDefault(listOf())))
             }.onFailure { throwable ->
                 _pokemonResult.postValue(ViewState.Failure(throwable))
             }
