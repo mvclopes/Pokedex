@@ -9,4 +9,6 @@ interface PokemonRepository {
         sort: String
     ): Result<List<Pokemon>>
 
+    suspend fun getPokemonById(id: String): Result<Pokemon>
+
 }
