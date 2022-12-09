@@ -8,6 +8,7 @@ import br.com.heiderlopes.pokemonwstemplatev2.data.repository.PokemonRepositoryI
 import br.com.heiderlopes.pokemonwstemplatev2.domain.repository.PokemonRepository
 import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.GetFirstGenerationPokemonsUseCase
 import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.GetPokemonUseCase
+import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.UpdatePokemonUseCase
 import br.com.heiderlopes.pokemonwstemplatev2.presentation.formpokemon.FormPokemonViewModel
 import br.com.heiderlopes.pokemonwstemplatev2.presentation.listpokemons.ListPokemonsViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -25,12 +26,18 @@ val pokemonModules by lazy {
 
 private val presentationModules = module {
     viewModel { ListPokemonsViewModel(getFirstGenerationPokemonsUseCase = get()) }
-    viewModel { FormPokemonViewModel(getPokemonUseCase = get()) }
+    viewModel {
+        FormPokemonViewModel(
+            getPokemonUseCase = get(),
+            updatePokemonUseCase = get()
+        )
+    }
 }
 
 private val domainModules = module {
     factory { GetFirstGenerationPokemonsUseCase(repository = get()) }
     factory { GetPokemonUseCase(repository = get()) }
+    factory { UpdatePokemonUseCase(repository = get()) }
 }
 
 private val dataModules = module {

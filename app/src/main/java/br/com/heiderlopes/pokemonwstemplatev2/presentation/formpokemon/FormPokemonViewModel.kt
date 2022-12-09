@@ -8,12 +8,14 @@ import androidx.lifecycle.viewModelScope
 import br.com.heiderlopes.pokemonwstemplatev2.domain.ViewState
 import br.com.heiderlopes.pokemonwstemplatev2.domain.model.Pokemon
 import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.GetPokemonUseCase
+import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.UpdatePokemonUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FormPokemonViewModel(
     private val getPokemonUseCase: GetPokemonUseCase,
+    private val updatePokemonUseCase: UpdatePokemonUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -30,6 +32,20 @@ class FormPokemonViewModel(
                 val pokemon = result.getOrNull()
                 Log.i("TAG", "getPokemon: $pokemon")
                 pokemon?.let { _pokemon.postValue(ViewState.Success(it)) }
+            }.onFailure { throwable ->
+                _pokemon.postValue(ViewState.Failure(throwable))
+            }
+        }
+    }
+
+    fun update(pokemon: Pokemon) {
+        _pokemon.postValue(ViewState.Loading)
+        viewModelScope.launch(dispatcher) {
+            runCatching {
+                updatePokemonUseCase(pokemon)
+            }.onSuccess { result ->
+                val updatedPokemon = result.getOrNull()
+                updatedPokemon?.let { _pokemon.postValue(ViewState.Success(it)) }
             }.onFailure { throwable ->
                 _pokemon.postValue(ViewState.Failure(throwable))
             }

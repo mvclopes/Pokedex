@@ -33,6 +33,7 @@ class FormPokemonActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel.getPokemon(pokemonId)
         registerObserver()
+        update()
     }
 
     private fun registerObserver() {
@@ -40,7 +41,8 @@ class FormPokemonActivity : AppCompatActivity() {
             when (it) {
                 is ViewState.Success -> setValues(it.data)
                 is ViewState.Loading -> {}
-                is ViewState.Failure -> Toast.makeText(this, it.throwable.message, Toast.LENGTH_LONG).show()
+                is ViewState.Failure ->
+                    Toast.makeText(this, it.throwable.message, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -77,5 +79,15 @@ class FormPokemonActivity : AppCompatActivity() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+    }
+
+    private fun update() {
+        binding.btSaveForm.setOnClickListener {
+            pokemon.attack = binding.sbAttack.progress
+            pokemon.defense = binding.sbDefense.progress
+            pokemon.velocity = binding.sbVelocity.progress
+            pokemon.ps = binding.sbPS.progress
+            viewModel.update(pokemon)
+        }
     }
 }
