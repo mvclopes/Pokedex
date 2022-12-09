@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import br.com.heiderlopes.pokemonwstemplatev2.databinding.ActivityMainBinding
 import br.com.heiderlopes.pokemonwstemplatev2.presentation.listpokemons.ListPokemonsActivity
+import br.com.heiderlopes.pokemonwstemplatev2.presentation.scan.ScanActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this@MainActivity, ListPokemonsActivity::class.java))
             }
             btClose.setOnClickListener { finish() }
+            btPokedex.setOnClickListener {
+                startActivity(Intent(this@MainActivity, ScanActivity::class.java))
+            }
         }
     }
 
