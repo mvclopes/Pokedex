@@ -28,7 +28,7 @@ class PokedexActivity : AppCompatActivity() {
     private fun registerObserver() {
         viewModel.pokemon.observe(this) { state ->
             when (state) {
-                ViewState.Loading -> { binding}
+                ViewState.Loading -> {}
                 is ViewState.Failure -> {}
                 is ViewState.Success -> {
                     binding.tvPokemonName.text = "$pokemonId ${state.data.name}"
