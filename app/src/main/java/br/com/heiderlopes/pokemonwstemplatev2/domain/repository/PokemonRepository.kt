@@ -11,4 +11,6 @@ interface PokemonRepository {
 
     suspend fun getPokemonById(id: String): Result<Pokemon>
 
+    suspend fun update(pokemon: Pokemon): Result<Pokemon>
+
 }
