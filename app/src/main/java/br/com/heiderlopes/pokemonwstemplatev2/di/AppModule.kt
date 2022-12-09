@@ -11,6 +11,7 @@ import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.GetPokemonUseCase
 import br.com.heiderlopes.pokemonwstemplatev2.domain.usecase.UpdatePokemonUseCase
 import br.com.heiderlopes.pokemonwstemplatev2.presentation.formpokemon.FormPokemonViewModel
 import br.com.heiderlopes.pokemonwstemplatev2.presentation.listpokemons.ListPokemonsViewModel
+import br.com.heiderlopes.pokemonwstemplatev2.presentation.pokedex.PokedexViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -32,6 +33,7 @@ private val presentationModules = module {
             updatePokemonUseCase = get()
         )
     }
+    viewModel { PokedexViewModel(getPokemonUseCase = get()) }
 }
 
 private val domainModules = module {
